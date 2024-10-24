@@ -8,7 +8,6 @@ A simple Python boilerplate project for creating "Cloud Run Jobs" (CRJ)
 2. [How to run the job script in the Dev container](#2)
 3. [How to deploy the job script to Cloud Run from the Dev container](#3)
 4. [How to run the job in Cloud Run](#4)
-5. [How to run the job as a cron job](#4)
 
 # 1 
 ## How to run the development environment
@@ -46,7 +45,7 @@ gcloud run jobs deploy my-job --image us-east1-docker.pkg.dev/$YOUR_PROJECT_ID/c
 # 4
 ## How to run the job in Google Cloud Run
 
-- gcloud run jobs execute my-job --region us-east1
+- `gcloud run jobs execute my-job --region us-east1`
 
 
 
