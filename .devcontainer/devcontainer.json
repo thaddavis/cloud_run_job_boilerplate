@@ -1,5 +1,5 @@
 {
-  "name": "Devcontainer with Python, gcloud, & Docker installed",
+  "name": "Devcontainer - Python, gcloud, & Docker",
   "build": {
     "dockerfile": "../Dockerfile.dev"
   },
