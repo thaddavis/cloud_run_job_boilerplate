@@ -1,43 +1,96 @@
 import json
 import os
 import sys
+from datetime import datetime  # Add this line
+from helpers.format_news_for_email import format_news_for_email
+from helpers.is_valid_email import is_valid_email
+from helpers.send_email_ses import send_email_ses
+from crewai import Agent, Crew, Task, Process
+from crewai_tools import ScrapeWebsiteTool
+import yaml
+from helpers.replace_yaml_variables import replace_yaml_variables
+from pydantic_types.NewsResults import NewsResults
+from dotenv import load_dotenv
 
-from helpers.test import test
+load_dotenv()
 
-import numpy as np
+# YAML Configuration
+current_date = datetime.now().strftime("%Y-%m-%d")  # Add current date
+replacements = {
+    "current_date": current_date
+}
+tasks_yaml = None
+with open("config/tasks.yaml", 'r') as file:
+    tasks_yaml = yaml.safe_load(file)
+    tasks_yaml = replace_yaml_variables(tasks_yaml, replacements)
+agents_yaml = None
+with open("config/agents.yaml", 'r') as file:
+    agents_yaml = yaml.safe_load(file)
 
-# Retrieve Job-defined env vars
-TASK_INDEX = os.getenv("CLOUD_RUN_TASK_INDEX", 0)
-TASK_ATTEMPT = os.getenv("CLOUD_RUN_TASK_ATTEMPT", 0)
-# Retrieve User-defined env vars
-SLEEP_MS = os.getenv("SLEEP_MS", 0)
-FAIL_RATE = os.getenv("FAIL_RATE", 0)
+emails=(os.getenv("COMMA_SEPARATED_EMAILS") or "")
+
+# Retrieve Job-defined env vars # ie: TASK_INDEX = os.getenv("CLOUD_RUN_TASK_INDEX", 0) # ie: TASK_ATTEMPT = os.getenv("CLOUD_RUN_TASK_ATTEMPT", 0)
+# Retrieve User-defined env vars # ie: FAIL_RATE = os.getenv("FAIL_RATE", 0)
+
+scrape_web_tool = ScrapeWebsiteTool()
 
 # Define main script
 def main():
-    """
-    Testing
-    """
-    print(f"Starting Task #{TASK_INDEX}, Attempt #{TASK_ATTEMPT}...")
-    test()
+    print('--- Hierarchical News Crew ---')
 
-    arr = np.array([1, 2, 3, 4, 5])
-    # Print the array
-    print("Array:", arr)
-    # Basic Operations
-    print("Sum:", np.sum(arr))           # Sum of elements
-    print("Mean:", np.mean(arr))         # Mean of elements
-    print("Max:", np.max(arr))           # Maximum value
-    print("Min:", np.min(arr))           # Minimum value
+    manager = Agent(
+        role=agents_yaml["manager"]["role"],
+        goal=agents_yaml["manager"]["goal"],
+        backstory=agents_yaml["manager"]["backstory"],
+        verbose=True,
+    )
 
-    print(f"Completed Task #{TASK_INDEX}.")
+    workers = []
+    
+    for worker in agents_yaml["workers"]:
+        workers.append(
+            Agent(
+                role=agents_yaml["workers"][worker]["role"],
+                goal=agents_yaml["workers"][worker]["goal"],
+                backstory=agents_yaml["workers"][worker]["backstory"],
+                verbose=True,
+                tools=[scrape_web_tool],
+            )
+        )
+
+    research_task = Task(
+        description=tasks_yaml["research_task"]["description"],
+        expected_output=tasks_yaml["research_task"]["expected_output"],
+        output_pydantic=NewsResults
+    )
+
+    crew = Crew(
+        agents=workers,
+        manager_agent=manager,
+        tasks=[research_task],
+        process=Process.hierarchical,
+        verbose=True,
+    )
+
+    crew_output = crew.kickoff()
+
+    print()
+    print('FINAL OUTPUT')
+    print()
+    print(crew_output.raw)
+    print()
+
+    email_list = emails.split(',')
+    for email in email_list:
+        if bool(email) and is_valid_email(email):
+            send_email_ses([email.strip()], format_news_for_email(crew_output.pydantic, current_date))
 
 if __name__ == "__main__":
     try:
         main()
     except Exception as err:
         message = (
-            f"Task #{TASK_INDEX}, " + f"Attempt #{TASK_ATTEMPT} failed: {str(err)}"
+            f"Attempt failed: {str(err)}"
         )
 
         print(json.dumps({"message": message, "severity": "ERROR"}))

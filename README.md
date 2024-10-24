@@ -8,6 +8,8 @@ A simple Python boilerplate project for creating "Cloud Run Jobs" (CRJ)
 2. [How to run the job script in the Dev container](#2)
 3. [How to deploy the job script to Cloud Run from the Dev container](#3)
 4. [How to run the job in Cloud Run](#4)
+5. [How to run the job on a schedule aka as a cron job](#5)
+6. [How to redeploy a new docker image of the job in GCP](#6)
 
 # 1 
 ## How to run the development environment
@@ -47,6 +49,23 @@ gcloud run jobs deploy my-job --image us-east1-docker.pkg.dev/$YOUR_PROJECT_ID/c
 
 - `gcloud run jobs execute my-job --region us-east1`
 
+# 5
+## How to run the job on a schedule aka as a cron job
 
+- `gcloud scheduler jobs create http SCHEDULER_JOB_NAME \
+  --location SCHEDULER_REGION \
+  --schedule="SCHEDULE" \
+  --uri="https://CLOUD_RUN_REGION-run.googleapis.com/apis/run.googleapis.com/v1/namespaces/PROJECT-ID/jobs/JOB-NAME:run" \
+  --http-method POST \
+  --oauth-service-account-email PROJECT-NUMBER-compute@developer.gserviceaccount.com`
 
+# 6
 
+```sh
+gcloud auth login
+gcloud auth print-access-token
+docker login -u oauth2accesstoken https://us-east1-docker.pkg.dev
+docker build --platform linux/amd64 -t us-east1-docker.pkg.dev/$YOUR_PROJECT_ID/crj-image-repo/crj-image:latest .
+docker push us-east1-docker.pkg.dev/$YOUR_PROJECT_ID/crj-image-repo/crj-image:latest
+gcloud run jobs execute my-job --region us-east1 --project $YOUR_PROJECT_ID
+```

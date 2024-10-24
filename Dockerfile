@@ -1,6 +1,8 @@
 # Use an official Python runtime as a parent image
 FROM python:3.12-slim
 
+RUN apt-get update && apt-get install -y build-essential g++ cmake libopenblas-dev libomp-dev && apt-get clean
+
 # Set the working directory in the container
 WORKDIR /workspace
 

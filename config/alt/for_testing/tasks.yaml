@@ -1,0 +1,11 @@
+research_task:
+  description: >
+    Conduct a thorough research about Haiti across the websites provided.
+    
+    - Le Nouvelliste (https://lenouvelliste.com/) & make sure research is done by the Le Nouvelliste reporter.
+
+    Make sure you find any interesting and relevant information given the current date is { current_date }.
+  expected_output: >
+    5 Bulletpoints of the top 5 events representing the most important developments retrieved from the various news outlets. Include a summary of 
+    event and include detailed sources and citations so that the information can be verified.
+    Include links to the sources in the final output.
