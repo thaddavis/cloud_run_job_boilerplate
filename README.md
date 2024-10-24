@@ -9,7 +9,7 @@ A simple Python boilerplate project for creating "Cloud Run Jobs" (CRJ)
 3. [How to deploy the job script to Cloud Run from the Dev container](#3)
 4. [How to run the job in Cloud Run](#4)
 5. [How to run the job on a schedule aka as a cron job](#5)
-6. [How to redeploy a new docker image of the job in GCP](#6)
+6. [How to redeploy a new docker image for the job in GCP](#6)
 
 # 1 
 ## How to run the development environment
@@ -60,6 +60,7 @@ gcloud run jobs deploy my-job --image us-east1-docker.pkg.dev/$YOUR_PROJECT_ID/c
   --oauth-service-account-email PROJECT-NUMBER-compute@developer.gserviceaccount.com`
 
 # 6
+## How to redeploy a new docker image for the job in GCP
 
 ```sh
 gcloud auth login
