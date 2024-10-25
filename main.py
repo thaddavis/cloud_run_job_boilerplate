@@ -36,7 +36,7 @@ scrape_web_tool = ScrapeWebsiteTool()
 
 # Define main script
 def main():
-    print('--- Hierarchical News Crew ---')
+    print('--- Hierarchical !!! News !!! Crew ---')
 
     manager = Agent(
         role=agents_yaml["manager"]["role"],
