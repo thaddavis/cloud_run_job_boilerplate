@@ -35,19 +35,19 @@ docker -v # for checking that Docker is installed
 gcloud auth login # then follow the steps to authenticate the Dev container with GCP
 gcloud config list account --format "value(core.account)" # for confirming you are authenticated
 # The next command creates a repository in GCP's "Artifact Registry" service where you can store Docker images
-gcloud artifacts repositories create crj-image-repo --repository-format=docker --location=us-east1 --project $YOUR_PROJECT_ID 
+gcloud artifacts repositories create crj-image-repo --repository-format=docker --location=us-east1 --project $PROJECT_ID 
 gcloud auth print-access-token # for getting an access token for authenticating Docker with the "Artifact Registry" service offered by GCP
 docker login -u oauth2accesstoken https://us-east1-docker.pkg.dev # for connecting Docker to "Artifact Registry" (paste in the access token)
 docker build --platform linux/amd64 -t crj-image . # for building the local code into a container for deployment to CRJ
-docker tag crj-image us-east1-docker.pkg.dev/$YOUR_PROJECT_ID/crj-image-repo/crj-image:latest # for tagging the image in a way that aligns with "Artifact Registry"
-docker push us-east1-docker.pkg.dev/$YOUR_PROJECT_ID/crj-image-repo/crj-image:latest # for storing the image into "Artifact Registry"
-gcloud run jobs deploy my-job --image us-east1-docker.pkg.dev/$YOUR_PROJECT_ID/crj-image-repo/crj-image:latest --region us-east1 --project $YOUR_PROJECT_ID # deploy the job
+docker tag crj-image us-east1-docker.pkg.dev/$PROJECT_ID/crj-image-repo/crj-image:latest # for tagging the image in a way that aligns with "Artifact Registry"
+docker push us-east1-docker.pkg.dev/$PROJECT_ID/crj-image-repo/crj-image:latest # for storing the image into "Artifact Registry"
+gcloud run jobs deploy my-job --image us-east1-docker.pkg.dev/$PROJECT_ID/crj-image-repo/crj-image:latest --region us-east1 --project $PROJECT_ID # deploy the job
 ```
 
 # 4
 ## How to run the job in Google Cloud Run
 
-- `gcloud run jobs execute my-job --region us-east1`
+- `gcloud run jobs execute my-job --region us-east1 --project $PROJECT_ID`
 
 # 5
 ## How to run the job on a schedule aka as a cron job
@@ -66,7 +66,7 @@ gcloud run jobs deploy my-job --image us-east1-docker.pkg.dev/$YOUR_PROJECT_ID/c
 gcloud auth login
 gcloud auth print-access-token
 docker login -u oauth2accesstoken https://us-east1-docker.pkg.dev
-docker build --platform linux/amd64 -t us-east1-docker.pkg.dev/$YOUR_PROJECT_ID/crj-image-repo/crj-image:latest .
-docker push us-east1-docker.pkg.dev/$YOUR_PROJECT_ID/crj-image-repo/crj-image:latest
-gcloud run jobs execute my-job --region us-east1 --project $YOUR_PROJECT_ID
+docker build --platform linux/amd64 -t us-east1-docker.pkg.dev/$PROJECT_ID/crj-image-repo/crj-image:latest .
+docker push us-east1-docker.pkg.dev/$PROJECT_ID/crj-image-repo/crj-image:latest
+gcloud run jobs execute my-job --region us-east1 --project $PROJECT_ID
 ```

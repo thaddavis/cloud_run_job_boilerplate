@@ -43,7 +43,3 @@ jobs:
           --env-vars-file env-vars.yaml \
           --region us-east1 \
           --project $PROJECT_ID
-      
-      # - name: Deploy to Cloud Run Jobs
-      #   run: |
-      #     gcloud run jobs execute $JOB_NAME --region $JOB_REGION --project $PROJECT_ID
