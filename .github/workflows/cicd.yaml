@@ -35,4 +35,4 @@ jobs:
 
       - name: Deploy to Cloud Run Jobs
         run: |
-          gcloud run jobs execute $JOB_NAME --region $JOB_REGION --project $YOUR_PROJECT_ID
+          gcloud run jobs execute $JOB_NAME --region $JOB_REGION --project $PROJECT_ID
