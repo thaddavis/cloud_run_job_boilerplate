@@ -33,6 +33,15 @@ jobs:
           docker build -f Dockerfile -t "${{ env.ARTIFACTORY_URL }}:${{ github.sha }}" ./
           docker push "${{ env.ARTIFACTORY_URL }}:${{ github.sha }}"
 
-      - name: Deploy to Cloud Run Jobs
+      - name: 
         run: |
-          gcloud run jobs execute $JOB_NAME --region $JOB_REGION --project $PROJECT_ID
+          gcloud run jobs deploy my-job \
+          --image us-east1-docker.pkg.dev/$PROJECT_ID/job-2-repo/job-2-repo:latest \
+          --set-secrets "OPENAI_API_KEY=projects/$YOUR_PROJECT_NUMBER/secrets/HAITI_NEWS_OPENAI_API_KEY:latest,AWS_SECRET_KEY=projects/$YOUR_PROJECT_NUMBER/secrets/HAITI_NEWS_AWS_SECRET_KEY:latest,AWS_ACCESS_KEY_ID=projects/$YOUR_PROJECT_NUMBER/secrets/HAITI_NEWS_AWS_ACCESS_KEY_ID:latest,AWS_REGION=projects/$YOUR_PROJECT_NUMBER/secrets/HAITI_NEWS_AWS_REGION:latest" \
+          --env-vars-file env-vars.yaml \
+          --region us-east1 \
+          --project $PROJECT_ID
+      
+      # - name: Deploy to Cloud Run Jobs
+      #   run: |
+      #     gcloud run jobs execute $JOB_NAME --region $JOB_REGION --project $PROJECT_ID
