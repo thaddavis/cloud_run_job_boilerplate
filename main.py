@@ -38,12 +38,12 @@ scrape_web_tool = ScrapeWebsiteTool()
 
 # Define main script
 def main():
-    print('--- Hierarchical !!! News !!! Crew ---')
+    print('--- eXp Real Estate Agent A.I. Newsletter ---')
 
     manager = Agent(
-        role=agents_yaml["manager"]["role"],
-        goal=agents_yaml["manager"]["goal"],
-        backstory=agents_yaml["manager"]["backstory"],
+        role=agents_yaml["cio"]["role"],
+        goal=agents_yaml["cio"]["goal"],
+        backstory=agents_yaml["cio"]["backstory"],
         verbose=True,
     )
 
