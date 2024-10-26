@@ -35,7 +35,7 @@ jobs:
           docker build -f Dockerfile -t "${{ env.ARTIFACTORY_URL }}:${{ github.sha }}" ./
           docker push "${{ env.ARTIFACTORY_URL }}:${{ github.sha }}"
 
-      - name: 
+      - name: Deploy to Cloud Run Job
         run: |
           gcloud run jobs deploy my-job \
           --image us-east1-docker.pkg.dev/$PROJECT_ID/job-2-repo/job-2-repo:${{ github.sha }} \
