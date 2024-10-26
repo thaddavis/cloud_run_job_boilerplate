@@ -76,11 +76,11 @@ def main():
 
     crew_output = crew.kickoff()
 
-    # print()
-    # print('FINAL OUTPUT')
-    # print()
-    # print(crew_output.raw)
-    # print()
+    print()
+    print('FINAL OUTPUT')
+    print()
+    print(crew_output.raw)
+    print()
 
     email_list = emails.split(',')
     for email in email_list:
