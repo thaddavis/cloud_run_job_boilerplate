@@ -82,7 +82,6 @@ def main():
     print()
     print('FINAL OUTPUT')
     print()
-    # print(crew_output.raw)
     print()
 
     # response = client.images.generate(

@@ -8,7 +8,7 @@ research_task:
 
     Make sure you find any interesting and relevant information given the current date is { current_date }.
   expected_output: >
-    5 Bulletpoints of the top 5 insights representing the most important information that are of importance to
-    Real Estate Agents that are thinking or are already a part of the eXp Realty Platform.
+    3 Bulletpoints of the top 3 insights representing the most important information that are of importance to
+    Real Estate Agents that are thinking about joining or are already a part of the eXp Realty Platform.
     The insights should be retrieved from the various website. Include a summary of insight and include detailed sources
     and citations so that the information can be verified. Include links to the sources in the final output.
