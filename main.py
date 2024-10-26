@@ -11,6 +11,7 @@ import yaml
 from helpers.replace_yaml_variables import replace_yaml_variables
 from pydantic_types.NewsResults import NewsResults
 import agentops
+from openai import OpenAI
 from dotenv import load_dotenv
 load_dotenv()
 
@@ -34,6 +35,8 @@ emails=(os.getenv("COMMA_SEPARATED_EMAILS") or "")
 # Retrieve Job-defined env vars # ie: TASK_INDEX = os.getenv("CLOUD_RUN_TASK_INDEX", 0) # ie: TASK_ATTEMPT = os.getenv("CLOUD_RUN_TASK_ATTEMPT", 0)
 # Retrieve User-defined env vars # ie: FAIL_RATE = os.getenv("FAIL_RATE", 0)
 
+
+client = OpenAI()
 scrape_web_tool = ScrapeWebsiteTool()
 
 # Define main script
@@ -79,8 +82,20 @@ def main():
     print()
     print('FINAL OUTPUT')
     print()
-    print(crew_output.raw)
+    # print(crew_output.raw)
     print()
+
+    # response = client.images.generate(
+    #     model="dall-e-3",
+    #     prompt="a white siamese cat",
+    #     size="1024x1024",
+    #     quality="standard",
+    #     n=1,
+    # )
+
+    # image_url = response.data[0].url
+
+    # print(f"Generated image: {image_url}")
 
     email_list = emails.split(',')
     for email in email_list:
