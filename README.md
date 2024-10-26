@@ -10,6 +10,7 @@ A simple Python boilerplate project for creating "Cloud Run Jobs" (CRJ)
 4. [How to run the job in Cloud Run](#4)
 5. [How to run the job on a schedule aka as a cron job](#5)
 6. [How to redeploy a new docker image for the job in GCP](#6)
+7. [How to add an environment secret to the Cloud Run Job in GCP](#7)
 
 # 1 
 ## How to run the development environment
@@ -69,4 +70,14 @@ docker login -u oauth2accesstoken https://us-east1-docker.pkg.dev
 docker build --platform linux/amd64 -t us-east1-docker.pkg.dev/$PROJECT_ID/crj-image-repo/crj-image:latest .
 docker push us-east1-docker.pkg.dev/$PROJECT_ID/crj-image-repo/crj-image:latest
 gcloud run jobs execute my-job --region us-east1 --project $PROJECT_ID
+```
+
+# 7
+## How to add an environment secret to the Cloud Run Job in GCP
+
+```sh
+echo -n "<AGENTOPS_API_KEY>" | gcloud secrets create HAITI_NEWS_AGENTOPS_API_KEY --data-file=-
+gcloud secrets add-iam-policy-binding HAITI_NEWS_AGENTOPS_API_KEY \
+  --member="serviceAccount:$PROJECT_NUMBER-compute@developer.gserviceaccount.com" \
+  --role="roles/secretmanager.secretAccessor" --project $PROJECT_ID
 ```

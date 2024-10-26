@@ -10,9 +10,11 @@ from crewai_tools import ScrapeWebsiteTool
 import yaml
 from helpers.replace_yaml_variables import replace_yaml_variables
 from pydantic_types.NewsResults import NewsResults
+import agentops
 from dotenv import load_dotenv
-
 load_dotenv()
+
+agentops.init(os.getenv("AGENTOPS_API_KEY"))
 
 # YAML Configuration
 current_date = datetime.now().strftime("%Y-%m-%d")  # Add current date
