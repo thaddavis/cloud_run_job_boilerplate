@@ -1,14 +1,18 @@
 research_task:
   description: >
-    Conduct a thorough research about the benefit's that eXp Realty offers it's Real Estate agents across the websites provided.
+    Conduct a thorough research about Haiti across the websites provided.
     
-    - https://us.exprealty.com/
-    - https://expworldholdings.com/press-releases/exp-realty-announces-strategic-leadership-changes-to-enhance-global-growth/
-    - https://expworldholdings.com/news/
-
+    - Le Nouvelliste (https://lenouvelliste.com/) & make sure research is done by the Le Nouvelliste reporter.
+    - Loop News Haiti (https://haiti.loopnews.com/) & make sure research is done by the Loop News Haiti reporter.
+    - The Haitian Times (https://haitiantimes.com/) & make sure research is done by the Haitian Times reporter.
+    - Ayibopost (https://ayibopost.com/) & make sure research is done by the Ayibopost reporter.
+    - Radio France Internationale (https://www.rfi.fr/en/tag/haiti/) & make sure research is done by the Radio France Internationale reporter.
+    - New York Times (https://www.nytimes.com/topic/destination/haiti) & make sure research is done by the New York Times reporter.
+    - CNN (https://www.cnn.com/search?q=Haiti&from=0&size=10&page=1&sort=newest&types=all&section=) & make sure research is done by the CNN reporter.
+    
     Make sure you find any interesting and relevant information given the current date is { current_date }.
   expected_output: >
-    3 Bulletpoints of the top 3 insights representing the most important information that are of importance to
-    Real Estate Agents that are thinking about joining or are already a part of the eXp Realty Platform.
-    The insights should be retrieved from the various website. Include a summary of insight and include detailed sources
-    and citations so that the information can be verified. Include links to the sources in the final output.
+    5 Bulletpoints of the top 5 events representing the most important developments retrieved from the various news outlets. Include a summary of 
+    event and include detailed sources and citations so that the information can be verified.
+    Include links to the sources in the final output. Finally, generate a solution-oriented question to
+    pose to social media to addresss any problems being raised by the most prominent of the developments.
