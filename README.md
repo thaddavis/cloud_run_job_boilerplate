@@ -81,5 +81,3 @@ gcloud secrets add-iam-policy-binding HAITI_NEWS_AGENTOPS_API_KEY \
   --member="serviceAccount:$PROJECT_NUMBER-compute@developer.gserviceaccount.com" \
   --role="roles/secretmanager.secretAccessor" --project $PROJECT_ID
 ```
-
-Testing
