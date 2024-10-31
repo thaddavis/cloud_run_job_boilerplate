@@ -9,7 +9,6 @@ env:
   PROJECT_NUMBER: 830723611668 # Google Cloud project number
   JOB_NAME: my-job # Cloud Run Job name
   JOB_REGION: us-east1 # Cloud Run region
-  
   ARTIFACTORY_URL: us-east1-docker.pkg.dev/kalygo-436411/job-2-repo/job-2-repo
 
 jobs:
