@@ -17,7 +17,7 @@ def send_email_ses(to_emails: list[str], body: str):
       },
       Message={
         'Subject': {
-          'Data': 'Weekly Update from the "Hierarchical Haitian News Crew"'
+          'Data': 'Weekly Update from the "A.I. Research Crew"'
         },
         'Body': {
           'Html': {
