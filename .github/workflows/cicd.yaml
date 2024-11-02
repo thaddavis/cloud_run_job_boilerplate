@@ -38,6 +38,6 @@ jobs:
         run: |
           gcloud run jobs deploy my-job \
           --image us-east1-docker.pkg.dev/$PROJECT_ID/job-2-repo/job-2-repo:${{ github.sha }} \
-          --set-secrets "OPENAI_API_KEY=projects/$PROJECT_NUMBER/secrets/HAITI_NEWS_OPENAI_API_KEY:latest,AWS_SECRET_KEY=projects/$PROJECT_NUMBER/secrets/HAITI_NEWS_AWS_SECRET_KEY:latest,AWS_ACCESS_KEY_ID=projects/$PROJECT_NUMBER/secrets/HAITI_NEWS_AWS_ACCESS_KEY_ID:latest,AWS_REGION=projects/$PROJECT_NUMBER/secrets/HAITI_NEWS_AWS_REGION:latest,AGENTOPS_API_KEY=projects/830723611668/secrets/HAITI_NEWS_AGENTOPS_API_KEY:latest,HAITI_NEWS_MAILING_LIST=projects/830723611668/secrets/HAITI_NEWS_MAILING_LIST:latest" \
+          --set-secrets "OPENAI_API_KEY=projects/$PROJECT_NUMBER/secrets/HAITI_NEWS_OPENAI_API_KEY:latest,AWS_SECRET_KEY=projects/$PROJECT_NUMBER/secrets/HAITI_NEWS_AWS_SECRET_KEY:latest,AWS_ACCESS_KEY_ID=projects/$PROJECT_NUMBER/secrets/HAITI_NEWS_AWS_ACCESS_KEY_ID:latest,AWS_REGION=projects/$PROJECT_NUMBER/secrets/HAITI_NEWS_AWS_REGION:latest,AGENTOPS_API_KEY=projects/830723611668/secrets/HAITI_NEWS_AGENTOPS_API_KEY:latest,COMMA_SEPARATED_EMAILS=projects/830723611668/secrets/HAITI_NEWS_MAILING_LIST:latest" \
           --region us-east1 \
           --project $PROJECT_ID
