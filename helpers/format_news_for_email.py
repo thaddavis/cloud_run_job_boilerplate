@@ -20,4 +20,7 @@ def format_news_for_email(news_results: NewsResults, current_date: str) -> str:
         email_body += ", ".join(source_links) + "</p>\n"
         email_body += "<hr>\n"
 
+    email_body += "<h2>Solution Oriented Question</h2>\n"
+    email_body += f"<p>{news_results.solution_oriented_question}</p>\n"
+
     return email_body
